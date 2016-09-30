@@ -16,14 +16,15 @@ require_relative "../sample"
 require "spec_helper"
 
 describe "Pub/Sub sample" do
+
   TOPIC_NAME = "my-topic"
   SUBSCRIPTION_NAME = "my-subscription"
   SERVICE_ACCOUNT =
-    "serviceAccount:test-account@#{ENV['GOOGLE_PROJECT_ID']}"\
+    "serviceAccount:test-account@#{ENV['GOOGLE_CLOUD_PROJECT']}"\
     ".iam.gserviceaccount.com"
 
   before :all do
-    @gcloud = Google::Cloud.new ENV["GOOGLE_PROJECT_ID"]
+    @gcloud = Google::Cloud.new
     @pubsub = @gcloud.pubsub
   end
 
@@ -46,8 +47,10 @@ describe "Pub/Sub sample" do
   end
 
   before :each do
+    fail "Must set GOOGLE_CLOUD_PROJECT" unless ENV["GOOGLE_CLOUD_PROJECT"]
+
     cleanup!
-    allow(Google::Cloud).to receive(:new).with("my-gcp-project-id").and_return(@gcloud)
+    allow(Google::Cloud).to receive(:new).and_return(@gcloud)
   end
 
   it "creates topic" do
@@ -114,7 +117,7 @@ describe "Pub/Sub sample" do
       ).and_return(
         @pubsub.topic(TOPIC_NAME).subscribe(
           subscription_name,
-          endpoint: "https://#{ENV['GOOGLE_PROJECT_ID']}.appspot.com/push"
+          endpoint: "https://#{ENV['GOOGLE_CLOUD_PROJECT']}.appspot.com/push"
         ))
 
     expect { create_push_subscription }.to \

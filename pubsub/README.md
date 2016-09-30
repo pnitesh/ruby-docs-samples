@@ -55,7 +55,21 @@ to demonstrate
 [receiving push messages][pubsub_push_docs] for subscriptions to a Pub/Sub topic.
 
 <!-- To deploy the web application -->
-<!-- To run the tests -->
+
+### Run the tests
+
+To run the tests for this sample:
+
+```sh
+# Install dependencies
+bundle install
+
+# Configure your Google Cloud project to use for the tests
+export GOOGLE_CLOUD_PROJECT="[Your Google Cloud Project ID]"
+
+# Run the tests
+bundle exec rspec
+```
 
 [google_cloud]:        https://cloud.google.com/
 [pubsub_docs]:         https://cloud.google.com/pubsub/docs/

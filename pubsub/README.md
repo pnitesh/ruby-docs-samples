@@ -1,5 +1,3 @@
-<img src="https://avatars2.githubusercontent.com/u/2810941?v=3&s=96" alt="Google Cloud Platform logo" title="Google Cloud Platform" align="right" height="96" width="96"/>
-
 <img src="https://cloud.google.com/_static/images/cloud/products/logos/svg/pubsub.svg" height="80" width="80" align="right" alt="Google Cloud Pub/Sub logo" title="Google Cloud Pub/Sub logo">
 
 # Google Cloud Pub/Sub Ruby Samples

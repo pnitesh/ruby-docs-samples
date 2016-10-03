@@ -13,6 +13,7 @@
 # limitations under the License.
 
 def create_bigquery_client project_id:
+# [START create_bigquery_client]
   # [START import_client_library]
   require "google/cloud"
   # [END import_client_library]
@@ -21,6 +22,7 @@ def create_bigquery_client project_id:
   gcloud   = Google::Cloud.new project_id
   bigquery = gcloud.bigquery
   # [END instantiate_client]
+# [END create_bigquery_client]
 end
 
 def create_dataset project_id:, dataset_id:

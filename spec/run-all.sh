@@ -21,16 +21,18 @@ status_return=0 # everything passed
 ruby --version
 
 # Run Tets
-for product in      \
-	bigquery    \
-	datastore   \
-	language    \
-	logging     \
-	pubsub      \
-	speech      \
-	storage     \
-	translate   \
-	vision      \
+for product in              \
+	bigquery            \
+	datastore           \
+	language            \
+	logging             \
+	pubsub              \
+	speech              \
+	storage             \
+	translate           \
+	vision              \
+	appengine/endpoints \
+	appengine/cloudsql  \
 ; do
 	echo "[$product]"
 	cd "$repo_directory/$product/"

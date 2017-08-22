@@ -85,11 +85,7 @@ describe "Pub/Sub sample" do
 
   it "deletes subscription" do
     topic = @pubsub.create_topic @topic_name
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
+    topic.create_subscription @subscription_name
     expect(topic.subscription @subscription_name).not_to be nil
 
     expect { delete_subscription }.to output(
@@ -135,22 +131,18 @@ describe "Pub/Sub sample" do
   end
 
   it "pulls a message" do
-    message = "Test Message"
+    topic = @pubsub.create_topic @topic_name
+    topic.create_subscription @subscription_name
 
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
-    @pubsub.topic(@topic_name).publish message
+    topic.publish "Test Message"
 
     expect_with_retry do
-      expect { pull_messages }.to output(/#{message}/).to_stdout
+      expect { pull_messages }.to output(/Test Message/).to_stdout
     end
   end
 
   it "lists topics" do
-    @pubsub.topic @topic_name, autocreate: true
+    @pubsub.create_topic @topic_name
 
     expect_with_retry do
       expect { list_topics }.to output(/#{@topic_name}/).to_stdout
@@ -158,11 +150,8 @@ describe "Pub/Sub sample" do
   end
 
   it "lists subscriptions" do
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
+    topic = @pubsub.create_topic @topic_name
+    topic.create_subscription @subscription_name
 
     expect_with_retry do
       expect { list_subscriptions }.to output(/#{@subscription_name}/).to_stdout
@@ -176,11 +165,8 @@ describe "Pub/Sub sample" do
   end
 
   it "gets subscription policy" do
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
+    topic = @pubsub.create_topic @topic_name
+    topic.create_subscription @subscription_name
 
     expect { get_subscription_policy }.to output(/{}/).to_stdout
   end
@@ -203,11 +189,8 @@ describe "Pub/Sub sample" do
   end
 
   it "sets subscription policy" do
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
+    topic = @pubsub.create_topic @topic_name
+    topic.create_subscription @subscription_name
 
     expect_any_instance_of(Google::Cloud::Pubsub::Policy).to \
       receive(:add).with(
@@ -229,11 +212,9 @@ describe "Pub/Sub sample" do
   end
 
   it "tests subscription permissions" do
-    @pubsub.create_subscription(
-      @topic_name,
-      @subscription_name,
-      autocreate: true
-    )
+    topic = @pubsub.create_topic @topic_name
+    topic.create_subscription @subscription_name
+
     expect { test_subscription_permissions }.to output(/true\ntrue/).to_stdout
   end
 end

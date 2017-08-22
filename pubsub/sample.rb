@@ -20,6 +20,8 @@ pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
 
 def create_topic
   # [START create_topic]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
 
   topic = pubsub.create_topic "my-topic"
@@ -30,6 +32,8 @@ end
 
 def delete_topic
   # [START delete_topic]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -41,6 +45,8 @@ end
 
 def create_subscription
   # [START create_subscription]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -52,6 +58,8 @@ end
 
 def delete_subscription
   # [START delete_subscription]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic        = pubsub.topic "my-topic"
   subscription = topic.subscription "my-subscription"
@@ -64,6 +72,8 @@ end
 
 def create_push_subscription
   # [START create_push_subscription]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -78,6 +88,8 @@ end
 
 def publish_message
   # [START publish_message]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -87,6 +99,8 @@ end
 
 def pull_messages
   # [START pull_messages]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   subscription = pubsub.subscription "my-subscription"
 
@@ -100,6 +114,8 @@ end
 
 def list_topics
   # [START list_topics]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topics = pubsub.topics
 
@@ -112,6 +128,8 @@ end
 
 def list_subscriptions
   # [START list_subscriptions]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub        = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   subscriptions = pubsub.subscriptions
 
@@ -124,6 +142,8 @@ end
 
 def get_topic_policy
   # [START get_topic_policy]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -136,6 +156,8 @@ end
 
 def get_subscription_policy
   # [START get_subscription_policy]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   subscription = pubsub.subscription "my-subscription"
 
@@ -148,6 +170,8 @@ end
 
 def set_subscription_policy
   # [START set_subscription_policy]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   subscription = pubsub.subscription "my-subscription"
 
@@ -162,6 +186,8 @@ end
 
 def set_topic_policy
   # [START set_topic_policy]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 
@@ -176,6 +202,8 @@ end
 
 def test_subscription_permissions
   # [START test_subscription_permissions]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   subscription = pubsub.subscription "my-subscription"
 
@@ -189,6 +217,8 @@ end
 
 def test_topic_permissions
   # [START test_topic_permissions]
+  # project_id = "Your Google Cloud project ID"
+
   pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
   topic  = pubsub.topic "my-topic"
 

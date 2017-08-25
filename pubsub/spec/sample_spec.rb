@@ -19,6 +19,7 @@ describe "Pub/Sub sample" do
 
   before do
     @pubsub            = Google::Cloud::Pubsub.new
+    @project_id        = @pubsub.project
     @topic_name        = "my-topic"
     @subscription_name = "my-subscription"
     @service_account   =
@@ -26,10 +27,6 @@ describe "Pub/Sub sample" do
       ".iam.gserviceaccount.com"
 
     cleanup!
-
-    allow(Google::Cloud::Pubsub).to receive(:new).
-                                    with(project: "my-gcp-project-id").
-                                    and_return(@pubsub)
   end
 
   def cleanup!
@@ -53,7 +50,7 @@ describe "Pub/Sub sample" do
   it "creates topic" do
     expect(@pubsub.topic(@topic_name)).to be nil
 
-    expect { create_topic }.to output(/#{@topic_name}/).to_stdout
+    expect { create_topic project_id: @project_id }.to output(/#{@topic_name}/).to_stdout
 
     topic = @pubsub.topic @topic_name
     expect(topic.nil?).to eq(false)
@@ -65,7 +62,7 @@ describe "Pub/Sub sample" do
     @pubsub.create_topic @topic_name
     expect(@pubsub.topic @topic_name).not_to be nil
 
-    expect { delete_topic }.to output("Deleted topic #{@topic_name}\n").to_stdout
+    expect { delete_topic project_id: @project_id }.to output("Deleted topic #{@topic_name}\n").to_stdout
 
     expect(@pubsub.topic @topic_name).to be nil
   end
@@ -74,7 +71,7 @@ describe "Pub/Sub sample" do
     expect(@pubsub.subscription(@subscription_name)).to be nil
     @pubsub.create_topic @topic_name
 
-    expect { create_subscription }.to output(/#{@subscription_name}/).to_stdout
+    expect { create_subscription project_id: @project_id }.to output(/#{@subscription_name}/).to_stdout
 
     subscription = @pubsub.subscription @subscription_name
     expect(subscription.nil?).to eq(false)
@@ -88,7 +85,7 @@ describe "Pub/Sub sample" do
     topic.create_subscription @subscription_name
     expect(topic.subscription @subscription_name).not_to be nil
 
-    expect { delete_subscription }.to output(
+    expect { delete_subscription project_id: @project_id }.to output(
       "Deleted subscription #{@subscription_name}\n"
     ).to_stdout
 
@@ -113,7 +110,7 @@ describe "Pub/Sub sample" do
           endpoint: "https://#{@pubsub.project}.appspot.com/push"
         ))
 
-    expect { create_push_subscription }.to \
+    expect { create_push_subscription project_id: @project_id }.to \
       output(/#{subscription_name}/).to_stdout
 
     subscription = @pubsub.subscription subscription_name
@@ -127,7 +124,7 @@ describe "Pub/Sub sample" do
   it "publishes a message" do
     @pubsub.create_topic @topic_name
 
-    expect { publish_message }.not_to raise_error
+    expect { publish_message project_id: @project_id }.not_to raise_error
   end
 
   it "pulls a message" do
@@ -137,7 +134,7 @@ describe "Pub/Sub sample" do
     topic.publish "Test Message"
 
     expect_with_retry do
-      expect { pull_messages }.to output(/Test Message/).to_stdout
+      expect { pull_messages project_id: @project_id }.to output(/Test Message/).to_stdout
     end
   end
 
@@ -145,7 +142,7 @@ describe "Pub/Sub sample" do
     @pubsub.create_topic @topic_name
 
     expect_with_retry do
-      expect { list_topics }.to output(/#{@topic_name}/).to_stdout
+      expect { list_topics project_id: @project_id }.to output(/#{@topic_name}/).to_stdout
     end
   end
 
@@ -154,21 +151,21 @@ describe "Pub/Sub sample" do
     topic.create_subscription @subscription_name
 
     expect_with_retry do
-      expect { list_subscriptions }.to output(/#{@subscription_name}/).to_stdout
+      expect { list_subscriptions project_id: @project_id }.to output(/#{@subscription_name}/).to_stdout
     end
   end
 
   it "gets topic policy" do
     @pubsub.create_topic @topic_name
 
-    expect { get_topic_policy }.to output(/{}/).to_stdout
+    expect { get_topic_policy project_id: @project_id }.to output(/{}/).to_stdout
   end
 
   it "gets subscription policy" do
     topic = @pubsub.create_topic @topic_name
     topic.create_subscription @subscription_name
 
-    expect { get_subscription_policy }.to output(/{}/).to_stdout
+    expect { get_subscription_policy project_id: @project_id }.to output(/{}/).to_stdout
   end
 
   it "sets topic policy" do
@@ -182,7 +179,7 @@ describe "Pub/Sub sample" do
         m.call "roles/pubsub.publisher", @service_account
       end
 
-    expect { set_topic_policy }.to output(/roles/).to_stdout
+    expect { set_topic_policy project_id: @project_id }.to output(/roles/).to_stdout
 
     expect(@pubsub.topic(@topic_name).policy.roles).to \
       include("roles/pubsub.publisher" => [@service_account])
@@ -200,7 +197,7 @@ describe "Pub/Sub sample" do
         m.call "roles/pubsub.subscriber", @service_account
       end
 
-    expect { set_subscription_policy }.to output(/roles/).to_stdout
+    expect { set_subscription_policy project_id: @project_id }.to output(/roles/).to_stdout
 
     expect(@pubsub.subscription(@subscription_name).policy.roles).to \
       include("roles/pubsub.subscriber" => [@service_account])
@@ -208,13 +205,13 @@ describe "Pub/Sub sample" do
 
   it "tests topic permissions" do
     @pubsub.create_topic @topic_name
-    expect { test_topic_permissions }.to output(/true\ntrue/).to_stdout
+    expect { test_topic_permissions project_id: @project_id }.to output(/true\ntrue/).to_stdout
   end
 
   it "tests subscription permissions" do
     topic = @pubsub.create_topic @topic_name
     topic.create_subscription @subscription_name
 
-    expect { test_subscription_permissions }.to output(/true\ntrue/).to_stdout
+    expect { test_subscription_permissions project_id: @project_id }.to output(/true\ntrue/).to_stdout
   end
 end

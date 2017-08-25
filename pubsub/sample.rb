@@ -18,11 +18,13 @@ require "google/cloud/pubsub"
 pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
 # [END create_pubsub_client]
 
-def create_topic
+def create_topic project_id:
   # [START create_topic]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
 
   topic = pubsub.create_topic "my-topic"
 
@@ -30,11 +32,13 @@ def create_topic
   # [END create_topic]
 end
 
-def delete_topic
+def delete_topic project_id:
   # [START delete_topic]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   topic.delete
@@ -43,11 +47,13 @@ def delete_topic
   # [END delete_topic]
 end
 
-def create_subscription
+def create_subscription project_id:
   # [START create_subscription]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   subscription = topic.subscribe "my-subscription"
@@ -56,11 +62,11 @@ def create_subscription
   # [END create_subscription]
 end
 
-def delete_subscription
+def delete_subscription project_id:
   # [START delete_subscription]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub       = Google::Cloud::Pubsub.new project: project_id
   topic        = pubsub.topic "my-topic"
   subscription = topic.subscription "my-subscription"
 
@@ -70,11 +76,13 @@ def delete_subscription
   # [END delete_subscription]
 end
 
-def create_push_subscription
+def create_push_subscription project_id:
   # [START create_push_subscription]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   subscription = topic.subscribe(
@@ -86,22 +94,24 @@ def create_push_subscription
   # [END create_push_subscription]
 end
 
-def publish_message
+def publish_message project_id:
   # [START publish_message]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   topic.publish "A Message"
   # [END publish_message]
 end
 
-def pull_messages
+def pull_messages project_id:
   # [START pull_messages]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub       = Google::Cloud::Pubsub.new project: project_id
   subscription = pubsub.subscription "my-subscription"
 
   puts "Messages pulled:"
@@ -112,11 +122,13 @@ def pull_messages
   # [END pull_messages]
 end
 
-def list_topics
+def list_topics project_id:
   # [START list_topics]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topics = pubsub.topics
 
   puts "Topics:"
@@ -126,11 +138,11 @@ def list_topics
   # [END list_topics]
 end
 
-def list_subscriptions
+def list_subscriptions project_id:
   # [START list_subscriptions]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub        = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub        = Google::Cloud::Pubsub.new project: project_id
   subscriptions = pubsub.subscriptions
 
   puts "Subscriptions:"
@@ -140,11 +152,13 @@ def list_subscriptions
   # [END list_subscriptions]
 end
 
-def get_topic_policy
+def get_topic_policy project_id:
   # [START get_topic_policy]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   policy = topic.policy
@@ -154,11 +168,11 @@ def get_topic_policy
   # [END get_topic_policy]
 end
 
-def get_subscription_policy
+def get_subscription_policy project_id:
   # [START get_subscription_policy]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub       = Google::Cloud::Pubsub.new project: project_id
   subscription = pubsub.subscription "my-subscription"
 
   policy = subscription.policy
@@ -168,11 +182,11 @@ def get_subscription_policy
   # [END get_subscription_policy]
 end
 
-def set_subscription_policy
+def set_subscription_policy project_id:
   # [START set_subscription_policy]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub       = Google::Cloud::Pubsub.new project: project_id
   subscription = pubsub.subscription "my-subscription"
 
   policy = subscription.policy do |p|
@@ -184,11 +198,13 @@ def set_subscription_policy
   # [END set_subscription_policy]
 end
 
-def set_topic_policy
+def set_topic_policy project_id:
   # [START set_topic_policy]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   policy = topic.policy do |p|
@@ -200,11 +216,11 @@ def set_topic_policy
   # [END set_topic_policy]
 end
 
-def test_subscription_permissions
+def test_subscription_permissions project_id:
   # [START test_subscription_permissions]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub       = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  pubsub       = Google::Cloud::Pubsub.new project: project_id
   subscription = pubsub.subscription "my-subscription"
 
   permissions = subscription.test_permissions "pubsub.subscriptions.consume",
@@ -215,11 +231,13 @@ def test_subscription_permissions
   # [END test_subscription_permissions]
 end
 
-def test_topic_permissions
+def test_topic_permissions project_id:
   # [START test_topic_permissions]
   # project_id = "Your Google Cloud project ID"
 
-  pubsub = Google::Cloud::Pubsub.new project: "my-gcp-project-id"
+  require "google/cloud/pubsub"
+
+  pubsub = Google::Cloud::Pubsub.new project: project_id
   topic  = pubsub.topic "my-topic"
 
   permissions = topic.test_permissions "pubsub.topics.attachSubscription",

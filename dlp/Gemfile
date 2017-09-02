@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+# Pending pull request #1554 to publish DLP client library
+# https://github.com/GoogleCloudPlatform/google-cloud-ruby/pull/1554
+gem "google-cloud-dlp", path: "~/code/gcp/jacob-google-cloud-ruby/google-cloud-dlp"
+
+group :test do
+  gem "rspec"
+end

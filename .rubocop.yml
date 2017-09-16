@@ -1,0 +1,9 @@
+#require: rubocop-rspec
+inherit_gem:
+  rubocop-github:
+    - config/default.yml
+    - config/rails.yml
+
+# Specific to ruby-docs-samples
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses

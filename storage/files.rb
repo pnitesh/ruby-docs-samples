@@ -28,6 +28,21 @@ def list_bucket_contents project_id:, bucket_name:
   # [END list_bucket_contents]
 end
 
+def list_public_bucket_contents bucket_name:
+  # [START list_public_bucket_contents]
+  # bucket_name = "A Google Cloud Storage bucket name"
+
+  require "google/cloud/storage"
+
+  storage = Google::Cloud::Storage.anonymous
+  bucket  = storage.bucket bucket_name, skip_lookup: true
+
+  bucket.files.each do |file|
+    puts file.name
+  end
+  # [END list_public_bucket_contents]
+end
+
 def list_bucket_contents_with_prefix project_id:, bucket_name:, prefix:
   # [START list_bucket_contents_with_prefix]
   # project_id  = "Your Google Cloud project ID"
@@ -350,6 +365,8 @@ def run_sample arguments
   when "list"
     list_bucket_contents project_id:  project_id,
                          bucket_name: arguments.shift
+  when "public_list"
+    list_public_bucket_contents bucket_name: arguments.shift
   when "upload"
     upload_file project_id:      project_id,
                 bucket_name:     arguments.shift,
@@ -416,6 +433,7 @@ Usage: bundle exec ruby files.rb [command] [arguments]
 
 Commands:
   list              <bucket>                                        List all files in the bucket
+  public_list       <bucket>                                        List all files in a public bucket
   upload            <bucket> <file>                                 Upload local file to a bucket
   encrypted_upload  <bucket> <file> <base64_encryption_key>         Upload local file as an encrypted file to a bucket
   download           <bucket> <file> <path>                         Download a file from a bucket
